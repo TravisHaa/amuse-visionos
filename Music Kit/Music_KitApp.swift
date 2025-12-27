@@ -2,7 +2,7 @@
 //  Music_KitApp.swift
 //  Music Kit
 //
-//  Created by IVAN CAMPOS on 3/7/25.
+//  Created by TRAVIS HA on 12/27/25.
 //
 
 import SwiftUI

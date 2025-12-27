@@ -2,7 +2,7 @@
 //  Extensions.swift
 //  Music Kit
 //
-//  Created by IVAN CAMPOS on 6/10/24.
+//  Created by TRAVIS HA on 12/27/25.
 //
 
 import SwiftUI

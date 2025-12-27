@@ -2,18 +2,23 @@
 //  ImmersiveView.swift
 //  Music Kit
 //
-//  Created by IVAN CAMPOS on 3/7/25.
+//  Created by TRAVIS HA on 12/27/25.
 //
 
 import SwiftUI
 import RealityKit
 import MusicKit
+import GestureKit
 
 /// Adjust this to define how many songs appear in one row / chunk
 let CHUNK_SIZE = 9
 
 struct ImmersiveView: View {
     @EnvironmentObject var musicManager: MusicManager
+    @Environment(AppModel.self) private var appModel
+    @Environment(\.openImmersiveSpace) private var openImmersiveSpace
+    @Environment(\.dismissImmersiveSpace) private var dismissImmersiveSpace
+    @StateObject private var gestureModel = GestureViewModel()
     
     var body: some View {
         RealityView { content, attachments in
@@ -56,6 +61,8 @@ struct ImmersiveView: View {
                         Text(song.title)
                         Spacer()
                         Button(action: {
+                            // Print when play button is pressed
+                            print("🎵 Play button pressed for song: \(song.title) by \(song.artistName)")
                             musicManager.playSong(song)
                         }) {
                             Image(systemName: "play.circle")
@@ -88,15 +95,37 @@ struct ImmersiveView: View {
             
             // Attachment for Titles / custom UI
             Attachment(id: "Titles") {
-                TitlesView()
-                HStack {
-                    // A separate "Stop Playback" UI
-                    StopView {
-                        musicManager.stopPlayback()
+                VStack {
+                    TitlesView()
+                    HStack {
+                        // A separate "Stop Playback" UI
+                        StopView {
+                            musicManager.stopPlayback()
+                        }
                     }
+                    .frame(width: 350)
                 }
-                .frame(width: 350)
             }
+        }
+        .task {
+            // Pass the musicManager to the gesture model so gestures can control playback
+            gestureModel.musicManager = musicManager
+            // Pass AppModel and openImmersiveSpace action so gestures can toggle immersive space
+            gestureModel.appModel = appModel
+            gestureModel.openImmersiveSpaceAction = {
+                // Open immersive space action
+                switch await openImmersiveSpace(id: appModel.immersiveSpaceID) {
+                case .opened:
+                    // Space opened successfully
+                    break
+                case .userCancelled, .error:
+                    // On error, mark as closed
+                    appModel.immersiveSpaceState = .closed
+                @unknown default:
+                    appModel.immersiveSpaceState = .closed
+                }
+            }
+            await gestureModel.start()
         }
     }
 }
@@ -121,6 +150,8 @@ struct TitlesView: View {
                         ForEach(songChunk, id: \.id) { song in
                             VStack {
                                 Button(action: {
+                                    // Print when play button is pressed (title button)
+                                    print("🎵 Play button pressed for song: \(song.title) by \(song.artistName)")
                                     musicManager.playSong(song)
                                 }) {
                                     VStack {

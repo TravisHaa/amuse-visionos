@@ -2,7 +2,7 @@
 //  MusicManager.swift
 //  Music Kit
 //
-//  Created by IVAN CAMPOS on 2/22/25.
+//  Created by TRAVIS HA on 12/27/25.
 //
 
 import Foundation
@@ -25,6 +25,8 @@ class MusicManager: ObservableObject {
     @Published var playlists: [Playlist] = []
     @Published var selectedTracks: [Track] = []
     @Published var isAuthorized: Bool = false
+    @Published var lastSelectedSong: Song? = nil  // Track the last album cover that was pressed
+    @Published var currentlyPlayingSong: Song? = nil  // Track the currently playing song to trigger 3D object spawn
     
     // (Optional) You can store the last error so the UI can display it if needed
     @Published var lastError: Error?
@@ -163,15 +165,25 @@ class MusicManager: ObservableObject {
             do {
                 player.queue = [song]
                 try await player.play()
+                // Update the currently playing song to trigger 3D object spawn
+                currentlyPlayingSong = song
             } catch {
                 handleError(error, message: "Error playing song")
             }
         }
     }
     
+    /// Handle when an album cover is pressed/tapped
+    func selectAlbumCover(for song: Song) {
+        lastSelectedSong = song
+        print("🎨 Album cover pressed for song: \(song.title) by \(song.artistName)")
+    }
+    
     func stopPlayback() {
         Task {
             player.stop()
+            // Clear the currently playing song when stopped
+            currentlyPlayingSong = nil
         }
     }
     
@@ -204,6 +216,13 @@ class MusicManager: ObservableObject {
     
     // MARK: - Fetch All Songs for an Artist
     func fetchSongsForArtist(artistName: String) async {
+        // Check authorization first
+        guard isAuthorized else {
+            let error = NSError(domain: "MusicManager", code: 401, userInfo: [NSLocalizedDescriptionKey: "MusicKit authorization required. Please authorize MusicKit access."])
+            handleError(error, message: "Not authorized")
+            return
+        }
+        
         do {
             // 1. Search for the artist
             var searchRequest = MusicCatalogSearchRequest(term: artistName, types: [Artist.self])
@@ -211,7 +230,8 @@ class MusicManager: ObservableObject {
             let searchResponse = try await searchRequest.response()
             
             guard let artist = searchResponse.artists.first else {
-                print("Artist not found.")
+                let error = NSError(domain: "MusicManager", code: 404, userInfo: [NSLocalizedDescriptionKey: "Artist '\(artistName)' not found."])
+                handleError(error, message: "Artist not found")
                 return
             }
             
@@ -220,7 +240,8 @@ class MusicManager: ObservableObject {
             let artistResponse = try await artistRequest.response()
             
             guard let detailedArtist = artistResponse.items.first else {
-                print("Could not fetch detailed artist info.")
+                let error = NSError(domain: "MusicManager", code: 404, userInfo: [NSLocalizedDescriptionKey: "Could not fetch detailed information for artist '\(artistName)'."])
+                handleError(error, message: "Could not fetch artist details")
                 return
             }
             
@@ -232,11 +253,43 @@ class MusicManager: ObservableObject {
             let fetchedSongs = songsResponse.songs
             let filteredSongs = fetchedSongs.filter { $0.artistName.contains(detailedArtist.name) }
             
+            // Clear previous error on success
+            lastError = nil
+            
             // Modify customSongs (already published)
             customSongs.append(contentsOf: filteredSongs)
             
+            print("✅ Successfully fetched \(filteredSongs.count) songs for \(detailedArtist.name)")
+            
         } catch {
             handleError(error, message: "Error fetching songs for artist")
+        }
+    }
+    func skipToNextTrack() {
+        Task {
+            guard isAuthorized else {
+                print("Not authorized to skip")
+                return
+            }
+            do {
+                try await player.skipToNextEntry()
+            } catch {
+                handleError(error, message: "Error skipping to next track")
+            }
+        }
+    }
+
+    func skipToPreviousTrack() {
+        Task {
+            guard isAuthorized else {
+                print("Not authorized to skip")
+                return
+            }
+            do {
+                try await player.skipToPreviousEntry()
+            } catch {
+                handleError(error, message: "Error skipping to previous track")
+            }
         }
     }
     
