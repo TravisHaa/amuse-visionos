@@ -1,0 +1,31 @@
+{
+  "metadata" : {
+    "author" : "Apple Vision Pro",
+    "description" : "Opening the dashboard",
+    "tags" : "",
+    "title" : "Left fist",
+    "tool" : "Gesture Composer by nthState"
+  },
+  "poses" : [
+    {
+      "duration" : 0,
+      "rules" : [
+
+      ]
+    },
+    {
+      "duration" : 0,
+      "rules" : [
+        {
+          "action" : "distance_less_than",
+          "description" : "Index Finger tips close",
+          "id" : "BE7E2F96-60A1-451C-B853-D6130773AAEE",
+          "source" : "left.thumbIntermediateTip",
+          "target" : "left.ringFingerIntermediateTip",
+          "value" : 0.06
+        }
+      ]
+    }
+  ],
+  "version" : "1"
+}

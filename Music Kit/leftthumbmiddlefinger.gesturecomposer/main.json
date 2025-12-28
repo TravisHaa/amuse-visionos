@@ -1,0 +1,25 @@
+{
+  "metadata" : {
+    "author" : "Apple Vision Pro",
+    "description" : "Use your left thumb tip to click your left middle finger tip￼",
+    "tags" : "",
+    "title" : "Left middle click",
+    "tool" : "Gesture Composer by nthState"
+  },
+  "poses" : [
+    {
+      "duration" : 0,
+      "rules" : [
+        {
+          "action" : "distance_less_than",
+          "description" : "Index Finger tips close",
+          "id" : "938A6A0A-4656-4D23-8AA9-F232C3D143A6",
+          "source" : "left.thumbTip",
+          "target" : "left.middleFingerTip",
+          "value" : 0.02
+        }
+      ]
+    }
+  ],
+  "version" : "1"
+}
