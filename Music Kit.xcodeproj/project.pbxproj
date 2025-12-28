@@ -32,6 +32,12 @@
 			exceptions = (
 				3B7AC3FC2D7BFD9D00CBC8FA /* Exceptions for "Music Kit" folder in "Music Kit" target */,
 			);
+			explicitFolders = (
+				leftfist.gesturecomposer,
+				leftthumbmiddlefinger.gesturecomposer,
+				rightthumbringfinger.gesturecomposer,
+				spidermanpause.gesturecomposer,
+			);
 			path = "Music Kit";
 			sourceTree = "<group>";
 		};

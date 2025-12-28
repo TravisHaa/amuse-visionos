@@ -15,6 +15,9 @@ import SwiftUI
 class GestureViewModel: ObservableObject {
     let detector: GestureDetector
     
+    // Published property to track the currently detected gesture name
+    // This is used to display gesture detection feedback in the UI
+    @Published var detectedGestureName: String?
     
     // Reference to the shared MusicManager instance
     // This allows gestures to control music playback
@@ -122,19 +125,50 @@ class GestureViewModel: ObservableObject {
     }
     
     // Handle the specific gesture that was detected
-    // Note: gesture is GestureMatchType, which conforms to Gesture protocol
+    // GestureMatchType is an enum with cases: full(url: URL, name: String), 
+    // partial(url: URL, name: String, stage: Int), reset(url: URL, name: String)
     // According to GestureKit README, use gesture.description to identify gestures
     private func handleSpecificGesture(_ gesture: GestureMatchType) {
-        // Use description to identify which gesture was detected
-        // gesture.description contains the gesture identifier from the gesture package
-        let gestureDescription = gesture.description
+        // Extract info for debugging
+        let gestureName: String
+        let gestureURL: URL
         
-        // Identify gesture by description and handle accordingly
-        // According to GestureKit, gesture.description contains the gesture identifier
-        // This may be the metadata description or title from the gesture package JSON
+        switch gesture {
+        case .full(let url, let name):
+            gestureName = name
+            gestureURL = url
+            print("   Match Type: full")
+        case .partial(let url, let name, let stage):
+            gestureName = name
+            gestureURL = url
+            print("   Match Type: partial (stage: \(stage))")
+            // Only handle full matches, ignore partial
+            return
+        case .reset(let url, let name):
+            gestureName = name
+            gestureURL = url
+            print("   Match Type: reset")
+            // Ignore reset events
+            return
+        }
+        
+        print("   Gesture Name: \(gestureName)")
+        print("   Gesture URL: \(gestureURL.lastPathComponent)")
+        
+        // Use gesture.description to identify gestures (as per GestureKit README)
+        // The description property provides a human-readable string representation
+        let gestureDescription = gesture.description
+        print("   Description: '\(gestureDescription)'")
+        
+        // Update the detected gesture name for UI display
+        // Use the description if available, otherwise fall back to the gesture name
+        detectedGestureName = gestureDescription.isEmpty ? gestureName : gestureDescription
+        
+        // Identify gesture by description (as demonstrated in GestureKit README)
+        // The description format may vary, so we check multiple possible formats
         switch gestureDescription {
         case "Opening the dashboard":
-            // Left fist gesture - metadata description is "Opening the dashboard"
+            // Left fist gesture - metadata description
             print("✊ Left fist gesture detected - open immersive space")
             // Open the immersive space (same as the button does)
             Task { @MainActor in
@@ -168,7 +202,7 @@ class GestureViewModel: ObservableObject {
             }
             
         case "Spider-Man":
-            // Spider-Man gesture - title (metadata description is empty, so title is used)
+            // Spider-Man gesture - title (metadata description is empty)
             print("🕷️ Spider-Man gesture detected - perform pause action")
             // Pause or resume playback based on current state
             if let manager = musicManager {
@@ -183,17 +217,19 @@ class GestureViewModel: ObservableObject {
             }
             
         case "Ring thumb tip touch":
-            // Ring thumb tip touch gesture - title (metadata description is empty, so title is used)
+            // Ring thumb tip touch gesture - title (metadata description is empty)
             print("👆 Ring thumb tip touch gesture detected")
             if let manager = musicManager {
                 manager.skipToNextTrack()
             }
             
         default:
-            // Unknown gesture - print description for debugging
+            // Unknown gesture - print info for debugging
             // This helps identify what description value is actually returned
             print("📱 Unknown gesture detected")
             print("   Description: '\(gestureDescription)'")
+            print("   Name: '\(gestureName)'")
+            print("   URL: \(gestureURL.lastPathComponent)")
             print("   (Add this description value to the switch statement to handle this gesture)")
             // Handle unknown gestures
         }

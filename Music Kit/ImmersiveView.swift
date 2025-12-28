@@ -127,6 +127,25 @@ struct ImmersiveView: View {
             }
             await gestureModel.start()
         }
+        .overlay {
+            // Overlay to display detected gestures
+            VStack(spacing: 20) {
+                Text("Perform the 'Left Fist' gesture")
+                    .font(.title2)
+                
+                // Display the detected gesture name if available
+                if let detected = gestureModel.detectedGestureName {
+                    Text(detected)
+                        .font(.largeTitle)
+                        .bold()
+                        .foregroundStyle(.green)
+                        .padding()
+                        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
+                        .animation(.easeInOut, value: detected)
+                }
+            }
+            .padding()
+        }
     }
 }
 
