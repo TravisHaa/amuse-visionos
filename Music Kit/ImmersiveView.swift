@@ -38,10 +38,11 @@ struct ImmersiveView: View {
             nameEntity.name = "name"
             content.add(nameEntity)
             
-            // Add attachments to that entity
+            // Add attachments to that entity with proper vertical spacing
             let attachmentData: [(name: String, position: SIMD3<Float>)] = [
-                (name: "Artwork", position: [0, 0, 0]),
-                (name: "Titles",  position: [0, 0, 0.1])
+                (name: "Artwork", position: [0, 0, -0.2]),      
+                (name: "Titles",  position: [0, 0, -0.1]),     // Position titles in middle
+                (name: "Stop",    position: [0, -0.1, -0.2])      // Position stop button higher (not too low)
             ]
             
             for data in attachmentData {
@@ -61,8 +62,6 @@ struct ImmersiveView: View {
                         Text(song.title)
                         Spacer()
                         Button(action: {
-                            // Print when play button is pressed
-                            print("🎵 Play button pressed for song: \(song.title) by \(song.artistName)")
                             musicManager.playSong(song)
                         }) {
                             Image(systemName: "play.circle")
@@ -76,76 +75,86 @@ struct ImmersiveView: View {
             Attachment(id: "Artwork") {
                 let chunkedSongs = musicManager.customSongs.chunked(into: CHUNK_SIZE)
                 
-                ScrollView {
-                    VStack {
-                        ForEach(chunkedSongs, id: \.self) { songChunk in
-                            HStack {
-                                ForEach(songChunk, id: \.id) { song in
-                                    if let artwork = song.artwork {
-                                        ArtworkImage(artwork, width: 350)
-                                            .hoverEffect(LiftHoverEffect())
+                    ScrollView {
+                        VStack {
+                            ForEach(chunkedSongs, id: \.self) { songChunk in
+                                HStack {
+                                    ForEach(songChunk, id: \.id) { song in
+                                        if let artwork = song.artwork {
+                                              
+                                                ArtworkImage(artwork: artwork, width: 350)
+                                                    .hoverEffect(LiftHoverEffect())
+                                            
+                                        }
                                     }
                                 }
                             }
                         }
+                        .padding()
                     }
-                    .padding()
-                }
             }
             
-            // Attachment for Titles / custom UI
+            // Attachment for Titles - displays song titles
             Attachment(id: "Titles") {
+                TitlesView()
+            }
+            
+            // Attachment for Stop button - separate from titles for better positioning
+            Attachment(id: "Stop") {
                 VStack {
-                    TitlesView()
-                    HStack {
-                        // A separate "Stop Playback" UI
-                        StopView {
-                            musicManager.stopPlayback()
-                        }
+                    StopView {
+                        musicManager.stopPlayback()
                     }
-                    .frame(width: 350)
                 }
+                .frame(width: 350)
             }
         }
         .task {
+            // Ensure songs are loaded when immersive view appears
+            if musicManager.customSongs.isEmpty {
+                await musicManager.getCustomSongs()
+            }
+            
             // Pass the musicManager to the gesture model so gestures can control playback
             gestureModel.musicManager = musicManager
             // Pass AppModel and openImmersiveSpace action so gestures can toggle immersive space
             gestureModel.appModel = appModel
-            gestureModel.openImmersiveSpaceAction = {
-                // Open immersive space action
-                switch await openImmersiveSpace(id: appModel.immersiveSpaceID) {
-                case .opened:
-                    // Space opened successfully
-                    break
-                case .userCancelled, .error:
-                    // On error, mark as closed
-                    appModel.immersiveSpaceState = .closed
-                @unknown default:
-                    appModel.immersiveSpaceState = .closed
-                }
-            }
+             gestureModel.openImmersiveSpaceAction = {
+                 // Open immersive space action
+                 switch await openImmersiveSpace(id: appModel.immersiveSpaceID) {
+                 case .opened:
+                     // Space opened successfully
+                     break
+                 case .userCancelled, .error:
+                     // On error, mark as closed
+                     appModel.immersiveSpaceState = .closed
+                 @unknown default:
+                     appModel.immersiveSpaceState = .closed
+                 }
+             }
             await gestureModel.start()
         }
-        .overlay {
-            // Overlay to display detected gestures
-            VStack(spacing: 20) {
-                Text("Perform the 'Left Fist' gesture")
-                    .font(.title2)
-                
-                // Display the detected gesture name if available
-                if let detected = gestureModel.detectedGestureName {
-                    Text(detected)
-                        .font(.largeTitle)
-                        .bold()
-                        .foregroundStyle(.green)
-                        .padding()
-                        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
-                        .animation(.easeInOut, value: detected)
+                .overlay(alignment: .topTrailing) {
+                    // Overlay to display detected gestures - positioned at top-right corner
+                    VStack(spacing: 12) {
+                        Text("Perform the 'Left Fist' gesture")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        
+                        // Display the detected gesture name if available
+                        if let detected = gestureModel.detectedGestureName {
+                            Text(detected)
+                                .font(.title3)
+                                .bold()
+                                .foregroundStyle(.green)
+                                .padding(.horizontal, 16)
+                                .padding(.vertical, 8)
+                                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
+                                .animation(.easeInOut, value: detected)
+                        }
+                    }
+                    .padding()
                 }
-            }
-            .padding()
-        }
     }
 }
 

@@ -71,6 +71,56 @@ func createArtworkEntity(
     }
 }
 
+/// A SwiftUI view that displays artwork from MusicKit Artwork
+struct ArtworkImage: View {
+    let artwork: Artwork
+    let width: CGFloat
+    
+    @State private var image: UIImage?
+    
+    var body: some View {
+        Group {
+            if let image = image {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: width, height: width)
+                    .cornerRadius(8)
+            } else {
+                // Placeholder while loading
+                Rectangle()
+                    .fill(Color.gray.opacity(0.3))
+                    .frame(width: width, height: width)
+                    .cornerRadius(8)
+                    .overlay {
+                        ProgressView()
+                    }
+            }
+        }
+        .task {
+            await loadImage()
+        }
+    }
+    
+    // Load the artwork image asynchronously
+    private func loadImage() async {
+        guard let imageURL = artwork.url(width: Int(width), height: Int(width)) else {
+            return
+        }
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(from: imageURL)
+            if let uiImage = UIImage(data: data) {
+                await MainActor.run {
+                    self.image = uiImage
+                }
+            }
+        } catch {
+            print("Error loading artwork image: \(error)")
+        }
+    }
+}
+
 /// A sample SwiftUI view for playback controls. Attach or modify as needed.
 struct PlaybackControlsView: View {
     @EnvironmentObject var musicManager: MusicManager
