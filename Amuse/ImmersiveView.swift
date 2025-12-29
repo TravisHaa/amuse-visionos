@@ -1,6 +1,6 @@
 //
 //  ImmersiveView.swift
-//  Music Kit
+//  Amuse
 //
 //  Created by TRAVIS HA on 12/27/25.
 //
@@ -11,7 +11,7 @@ import MusicKit
 import GestureKit
 
 /// Adjust this to define how many songs appear in one row / chunk
-let CHUNK_SIZE = 9
+let CHUNK_SIZE = 4
 
 struct ImmersiveView: View {
     @EnvironmentObject var musicManager: MusicManager
@@ -40,9 +40,9 @@ struct ImmersiveView: View {
             
             // Add attachments to that entity with proper vertical spacing
             let attachmentData: [(name: String, position: SIMD3<Float>)] = [
-                (name: "Artwork", position: [0, 0, -0.2]),      
-                (name: "Titles",  position: [0, 0, -0.1]),     // Position titles in middle
-                (name: "Stop",    position: [0, -0.1, -0.2])      // Position stop button higher (not too low)
+                (name: "Artwork", position: [1.2, 0, -0.2]),
+                (name: "Titles",  position: [1.2, 0, -0.1]),     // Position titles in middle
+                (name: "Stop",    position: [1.3, -0.5, -0.2])      // Position stop button higher (not too low)
             ]
             
             for data in attachmentData {

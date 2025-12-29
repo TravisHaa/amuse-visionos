@@ -1,6 +1,6 @@
 //
 //  Music_KitApp.swift
-//  Music Kit
+//  Amuse
 //
 //  Created by TRAVIS HA on 12/27/25.
 //
@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct Music_KitApp: App {
+struct AmuseApp: App {
     
     @State private var appModel = AppModel()
     @StateObject private var musicManager = MusicManager()

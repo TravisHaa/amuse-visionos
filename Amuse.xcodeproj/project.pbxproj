@@ -12,25 +12,25 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3B7AC3E42D7BFD9C00CBC8FA /* Music Kit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Music Kit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B7AC3E42D7BFD9C00CBC8FA /* Amuse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Amuse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B7AC3E82D7BFD9C00CBC8FA /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		3B7AC3FC2D7BFD9D00CBC8FA /* Exceptions for "Music Kit" folder in "Music Kit" target */ = {
+		DE187F322F0268260026B999 /* Exceptions for "Amuse" folder in "Amuse" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = 3B7AC3E32D7BFD9C00CBC8FA /* Music Kit */;
+			target = 3B7AC3E32D7BFD9C00CBC8FA /* Amuse */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		3B7AC3E62D7BFD9C00CBC8FA /* Music Kit */ = {
+		DE187F1A2F02681C0026B999 /* Amuse */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				3B7AC3FC2D7BFD9D00CBC8FA /* Exceptions for "Music Kit" folder in "Music Kit" target */,
+				DE187F322F0268260026B999 /* Exceptions for "Amuse" folder in "Amuse" target */,
 			);
 			explicitFolders = (
 				leftfist.gesturecomposer,
@@ -38,7 +38,7 @@
 				rightthumbringfinger.gesturecomposer,
 				spidermanpause.gesturecomposer,
 			);
-			path = "Music Kit";
+			path = Amuse;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -59,7 +59,7 @@
 		3B7AC3DB2D7BFD9C00CBC8FA = {
 			isa = PBXGroup;
 			children = (
-				3B7AC3E62D7BFD9C00CBC8FA /* Music Kit */,
+				DE187F1A2F02681C0026B999 /* Amuse */,
 				3B7AC3E72D7BFD9C00CBC8FA /* Packages */,
 				3B7AC3E52D7BFD9C00CBC8FA /* Products */,
 			);
@@ -68,7 +68,7 @@
 		3B7AC3E52D7BFD9C00CBC8FA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3B7AC3E42D7BFD9C00CBC8FA /* Music Kit.app */,
+				3B7AC3E42D7BFD9C00CBC8FA /* Amuse.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -84,9 +84,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3B7AC3E32D7BFD9C00CBC8FA /* Music Kit */ = {
+		3B7AC3E32D7BFD9C00CBC8FA /* Amuse */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3B7AC3FD2D7BFD9D00CBC8FA /* Build configuration list for PBXNativeTarget "Music Kit" */;
+			buildConfigurationList = 3B7AC3FD2D7BFD9D00CBC8FA /* Build configuration list for PBXNativeTarget "Amuse" */;
 			buildPhases = (
 				3B7AC3E02D7BFD9C00CBC8FA /* Sources */,
 				3B7AC3E12D7BFD9C00CBC8FA /* Frameworks */,
@@ -97,15 +97,15 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				3B7AC3E62D7BFD9C00CBC8FA /* Music Kit */,
+				DE187F1A2F02681C0026B999 /* Amuse */,
 			);
-			name = "Music Kit";
+			name = Amuse;
 			packageProductDependencies = (
 				3B7AC3E92D7BFD9C00CBC8FA /* RealityKitContent */,
 				DED6E5A22EFFB8F400032473 /* GestureKit */,
 			);
 			productName = "Music Kit";
-			productReference = 3B7AC3E42D7BFD9C00CBC8FA /* Music Kit.app */;
+			productReference = 3B7AC3E42D7BFD9C00CBC8FA /* Amuse.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -123,7 +123,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3B7AC3DF2D7BFD9C00CBC8FA /* Build configuration list for PBXProject "Music Kit" */;
+			buildConfigurationList = 3B7AC3DF2D7BFD9C00CBC8FA /* Build configuration list for PBXProject "Amuse" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -140,7 +140,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3B7AC3E32D7BFD9C00CBC8FA /* Music Kit */,
+				3B7AC3E32D7BFD9C00CBC8FA /* Amuse */,
 			);
 		};
 /* End PBXProject section */
@@ -340,7 +340,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3B7AC3DF2D7BFD9C00CBC8FA /* Build configuration list for PBXProject "Music Kit" */ = {
+		3B7AC3DF2D7BFD9C00CBC8FA /* Build configuration list for PBXProject "Amuse" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3B7AC4002D7BFD9D00CBC8FA /* Debug */,
@@ -349,7 +349,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3B7AC3FD2D7BFD9D00CBC8FA /* Build configuration list for PBXNativeTarget "Music Kit" */ = {
+		3B7AC3FD2D7BFD9D00CBC8FA /* Build configuration list for PBXNativeTarget "Amuse" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3B7AC3FE2D7BFD9D00CBC8FA /* Debug */,

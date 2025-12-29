@@ -1,6 +1,6 @@
 //
 //  GestureViewModel.swift
-//  Music Kit
+//  Amuse
 //
 //  Created by TRAVIS HA on 12/27/25.
 //
@@ -103,14 +103,7 @@ class GestureViewModel: ObservableObject {
     }
     
     func start() async {
-        // TEMPORARILY COMMENTED OUT - just for debugging detectedGestures
-        // async let _ = virtualHands.startSession()
-        // async let _ = virtualHands.startHandTracking()
-        // async let _ = virtualHands.handleSessionEvents()
-        
-        // 🔍 DEBUG: Print type information about detectedGestures
-        // 
-        // DISCOVERED: detectedGestures is AsyncStream<GestureMatchType>
+        //detectedGestures is AsyncStream<GestureMatchType>
         // - Type: AsyncStream<GestureMatchType> (from GestureKit)
         // - Element Type: GestureMatchType (conforms to 'Gesture' protocol)
         // - Usage: for await gesture in detector.detectedGestures

@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  Music Kit
+//  Amuse
 //
 //  Created by TRAVIS HA on 12/27/25.
 //
@@ -22,7 +22,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack(spacing: 20) {
-            Text("MusicKit Demo")
+            Text("Welcome to Amuse")
                 .font(.title)
                 .padding(.top, 40)
             

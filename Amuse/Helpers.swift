@@ -1,6 +1,6 @@
 //
 //  Helpers.swift
-//  Music Kit
+//  Amuse
 //
 //  Created by TRAVIS HA on 12/27/25.
 //

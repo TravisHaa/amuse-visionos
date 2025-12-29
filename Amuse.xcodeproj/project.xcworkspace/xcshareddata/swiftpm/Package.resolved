@@ -1,0 +1,24 @@
+{
+  "originHash" : "6773e1d61b8f4e95eab1c4ba1e08c9c164fdcbc982ff629a831b8e6773db3007",
+  "pins" : [
+    {
+      "identity" : "gesturekit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nthState/GestureKit",
+      "state" : {
+        "branch" : "main",
+        "revision" : "7975ea3337583da2039e8388b3070a366daa78b4"
+      }
+    },
+    {
+      "identity" : "uuidv7",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nthState/UUIDV7",
+      "state" : {
+        "branch" : "main",
+        "revision" : "68c460a23918f82b590cf4b20d06e92e019b39fc"
+      }
+    }
+  ],
+  "version" : 3
+}
