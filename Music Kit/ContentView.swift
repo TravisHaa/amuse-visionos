@@ -82,19 +82,19 @@ struct ContentView: View {
             gestureModel.musicManager = musicManager
             // Pass AppModel and openImmersiveSpace action so gestures can toggle immersive space
             gestureModel.appModel = appModel
-            // gestureModel.openImmersiveSpaceAction = {
-            //     // Open immersive space action
-            //     switch await openImmersiveSpace(id: appModel.immersiveSpaceID) {
-            //     case .opened:
-            //         // Space opened successfully
-            //         break
-            //     case .userCancelled, .error:
-            //         // On error, mark as closed
-            //         appModel.immersiveSpaceState = .closed
-            //     @unknown default:
-            //         appModel.immersiveSpaceState = .closed
-            //     }
-            // }
+            gestureModel.openImmersiveSpaceAction = {
+                // Open immersive space action
+                switch await openImmersiveSpace(id: appModel.immersiveSpaceID) {
+                case .opened:
+                    // Space opened successfully
+                    break
+                case .userCancelled, .error:
+                    // On error, mark as closed
+                    appModel.immersiveSpaceState = .closed
+                @unknown default:
+                    appModel.immersiveSpaceState = .closed
+                }
+            }
             await gestureModel.start()
         }
         .overlay(alignment: .topTrailing) {

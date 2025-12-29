@@ -54,13 +54,47 @@ class GestureViewModel: ObservableObject {
     init(musicManager: MusicManager? = nil) {
         // Store reference to the shared MusicManager
         self.musicManager = musicManager
-        // Initialize gesture packages
-        self.gesturePackages = [
-            URL(fileURLWithPath: "Music Kit/leftfist.gesturecomposer"),
-            URL(fileURLWithPath: "Music Kit/rightthumbringfinger.gesturecomposer"),
-            URL(fileURLWithPath: "Music Kit/leftthumbmiddlefinger.gesturecomposer"),
-            URL(fileURLWithPath: "Music Kit/spidermanpause.gesturecomposer")
-        ]
+        
+        // Initialize gesture packages using Bundle.main.url(forResource:withExtension:)
+        // This correctly loads .gesturecomposer folders from the app bundle,
+        // ensuring they work in built apps, simulator, and on device
+        let gestureNames = ["leftfist", "rightthumbringfinger", "leftthumbmiddlefinger", "spidermanpause"]
+        var loadedPackages: [URL] = []
+        
+        // Load each gesture package and log success/failure for debugging
+        for name in gestureNames {
+            if let url = Bundle.main.url(forResource: name, withExtension: "gesturecomposer") {
+                // Verify the URL actually points to an existing file/folder
+                let fileManager = FileManager.default
+                var isDirectory: ObjCBool = false
+                let exists = fileManager.fileExists(atPath: url.path, isDirectory: &isDirectory)
+                
+                if exists {
+                    print("✅ Loaded gesture package: \(name)")
+                    print("   URL: \(url.path)")
+                    print("   Is directory: \(isDirectory.boolValue)")
+                    loadedPackages.append(url)
+                } else {
+                    print("❌ Gesture package URL returned but file doesn't exist: \(name)")
+                    print("   URL: \(url.path)")
+                    print("   This suggests a bundle configuration issue.")
+                }
+            } else {
+                print("❌ Could not find gesture package in bundle: \(name).gesturecomposer")
+                print("   Make sure the .gesturecomposer folder is added to the app target in Xcode:")
+                print("   - Select the folder in Xcode")
+                print("   - Open File Inspector (right sidebar)")
+                print("   - Under 'Target Membership', check your app's target")
+                print("   - Also verify it's in the 'Copy Bundle Resources' build phase")
+            }
+        }
+        
+        self.gesturePackages = loadedPackages
+        
+        // Only create detector if we have at least one valid package
+        guard !gesturePackages.isEmpty else {
+            fatalError("No gesture packages could be loaded. Please ensure .gesturecomposer folders are added to the app target in Xcode.")
+        }
         
         let config = GestureDetectorConfiguration(packages: gesturePackages)
         self.detector = GestureDetector(configuration: config)
