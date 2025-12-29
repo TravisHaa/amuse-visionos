@@ -5,6 +5,9 @@
    <img width="253" height="255" alt="image" src="https://github.com/user-attachments/assets/fc4037c6-a1b5-4a26-a53e-4c0ce5baeb6f" />
 
    * this can be configured by pressing cmd + option + 1
+ * You should see the folders in Project Build Phases -> Copy Bundle Resources:
+ * <img width="327" height="301" alt="image" src="https://github.com/user-attachments/assets/71225da3-9994-4e73-8be1-f249d4e45658" />
+ 
  * Additionally, please ensure GestureKit as well as MusicKit are added as package dependencies in your Xcode project.
 
 
