@@ -1,6 +1,7 @@
 # Setup
 
  * For each of the .gesturecomposer files in this repository, please ensure **Build Rules are set to Apply once to Folder and the project is set as a target** as seen in this screenshot:
+
    <img width="253" height="255" alt="image" src="https://github.com/user-attachments/assets/fc4037c6-a1b5-4a26-a53e-4c0ce5baeb6f" />
 
    * this can be configured by pressing cmd + option + 1
