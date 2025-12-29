@@ -1,6 +1,10 @@
-# Music Kit
+# Setup
 
-Play Apple Music directly inside your visionOS app using MusicKit.  
+ * For each of the .gesturecomposer files in this repository, please ensure **Build Rules are set to Apply once to Folder and the project is set as a target** as seen in this screenshot:
+   ![Uploading image.png…]()
+   * this can be configured by pressing cmd + option + 1
+ * Additionally, please ensure GestureKit as well as MusicKit are added as package dependencies in your Xcode project.
+
 
 ## Enable MusicKit for your App ID
 The following steps are <span style="color:red">REQUIRED</span> to use MusicKit: 
