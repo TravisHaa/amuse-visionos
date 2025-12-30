@@ -228,19 +228,34 @@ class GestureViewModel: ObservableObject {
                 manager.skipToPreviousTrack()
             }
             
-        case "Spider-Man":
-            // Spider-Man gesture - title (metadata description is empty)
-            print("🕷️ Spider-Man gesture detected - perform pause action")
+        case "Peace Sign":
+            print("Peace Sign gesture detected - perform pause action")
             // Pause or resume playback based on current state
             if let manager = musicManager {
-                if manager.isPlaying() {
+                let isCurrentlyPlaying = manager.isPlaying()
+                print("   📊 Current playback status: \(manager.getPlaybackStatus())")
+                print("   📊 Is playing: \(isCurrentlyPlaying)")
+                print("   📊 Currently playing song: \(manager.currentlyPlayingSong?.title ?? "none")")
+                
+                if isCurrentlyPlaying {
+                    print("   ⏸️ Pausing playback...")
                     manager.pausePlayback()
+                    // Verify pause was successful
+                    Task { @MainActor in
+                        try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 second delay
+                        print("   ✅ After pause - status: \(manager.getPlaybackStatus())")
+                    }
                 } else {
                     // Resume playback if paused
+                    print("   ▶️ Resuming playback...")
                     if let song = manager.currentlyPlayingSong {
                         manager.playSong(song)
+                    } else {
+                        print("   ⚠️ No song to resume")
                     }
                 }
+            } else {
+                print("   ⚠️ MusicManager is nil - cannot control playback")
             }
             
         case "Ring thumb tip touch":

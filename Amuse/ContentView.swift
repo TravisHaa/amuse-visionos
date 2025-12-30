@@ -97,26 +97,28 @@ struct ContentView: View {
             }
             await gestureModel.start()
         }
-        .overlay(alignment: .topTrailing) {
-            // Overlay to display detected gestures - positioned at top-right corner
-            VStack(spacing: 12) {
-                Text("Perform the 'Left Fist' gesture")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                
-                // Display the detected gesture name if available
-                if let detected = gestureModel.detectedGestureName {
-                    Text(detected)
-                        .font(.title3)
-                        .bold()
-                        .foregroundStyle(.green)
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 8)
-                        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
-                        .animation(.easeInOut, value: detected)
+        .overlay {
+            // Overlay to display detected gestures - positioned at absolute top-right corner
+            GeometryReader { geometry in
+                VStack(spacing: 12) {
+                    Text("Perform the 'Left Fist' gesture")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                    
+                    // Display the detected gesture name if available
+                    if let detected = gestureModel.detectedGestureName {
+                        Text(detected)
+                            .font(.title3)
+                            .bold()
+                            .foregroundStyle(.green)
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 12)
+                            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
+                            .animation(.easeInOut, value: detected)
+                    }
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
             }
-            .padding()
         }
     }
 }

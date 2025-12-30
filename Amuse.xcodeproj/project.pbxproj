@@ -35,8 +35,8 @@
 			explicitFolders = (
 				leftfist.gesturecomposer,
 				leftthumbmiddlefinger.gesturecomposer,
+				peacesign.gesturecomposer,
 				rightthumbringfinger.gesturecomposer,
-				spidermanpause.gesturecomposer,
 			);
 			path = Amuse;
 			sourceTree = "<group>";

@@ -163,7 +163,25 @@ class MusicManager: ObservableObject {
         }
         Task {
             do {
-                player.queue = [song]
+                // Start with the selected song
+                var queue: [Song] = [song]
+                
+                // Get available songs from customSongs or songs array
+                let availableSongs = customSongs.isEmpty ? songs : customSongs
+                
+                // Filter out the currently selected song to avoid duplicates
+                let otherSongs = availableSongs.filter { $0.id != song.id }
+                
+                // Add a bunch of random songs to the queue (up to 20 additional songs)
+                if !otherSongs.isEmpty {
+                    let numberOfRandomSongs = min(20, otherSongs.count)
+                    let shuffledSongs = otherSongs.shuffled()
+                    let randomSongs = Array(shuffledSongs.prefix(numberOfRandomSongs))
+                    queue.append(contentsOf: randomSongs)
+                }
+                let musicQueue = ApplicationMusicPlayer.Queue(for: queue)
+                // Set the queue and play
+                player.queue = musicQueue
                 try await player.play()
                 // Update the currently playing song to trigger 3D object spawn
                 currentlyPlayingSong = song
@@ -180,17 +198,16 @@ class MusicManager: ObservableObject {
     }
     
     func stopPlayback() {
-        Task {
-            player.stop()
-            // Clear the currently playing song when stopped
-            currentlyPlayingSong = nil
-        }
+        
+        player.stop()
+        // Clear the currently playing song when stopped
+        currentlyPlayingSong = nil
+        
     }
     
     func pausePlayback() {
-        Task {
-            player.pause()
-        }
+        // Pause playback - pause() is synchronous and we're already on @MainActor
+        player.pause()
     }
     
     func getPlaybackStatus() -> MusicPlayer.PlaybackStatus {
