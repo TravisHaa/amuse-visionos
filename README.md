@@ -1,12 +1,65 @@
 # Details
  * Amuse is a hand-gesture controlled Apple Music player that uses Music Kit (Application Music Player) and Gesture Kit. The app utilizes 4 gestures to control music playback:
- | Gesture | Action |
- |---|---|
- | 1. Peace Sign: Pauses and plays the current track added to the Queue | <img width="640" height="640" alt="Thumbnail" src="https://github.com/user-attachments/assets/b90d3e57-3d11-49e1-b5f0-07c796d34820" /> |
- | 2. Left Fist: Opens the Immersive View of Songs and their respective album covers | <img width="640" height="640" alt="Thumbnail" src="https://github.com/user-attachments/assets/26c61734-807c-4a2d-881a-3f2d25b71d55" /> |
- | 3. Left Thumb and Middle Finger Click: Skips to the previous track | <img width="640" height="640" alt="Thumbnail" src="https://github.com/user-attachments/assets/fedcebf6-8b83-4a03-ab07-cb82f8893d68" /> |
- | 4. Right Thumb Ring Finger Click: Skips to the next track | <img width="640" height="640" alt="Thumbnail" src="https://github.com/user-attachments/assets/e85f6583-2e66-4c27-9c3d-c58e49d916ca" /> | 
+<h2>Gesture Controls</h2>
 
+<table>
+  <thead>
+    <tr>
+      <th align="left">Gesture</th>
+      <th align="left">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>✌️ Peace Sign</td>
+      <td>
+        Pauses and plays the current track added to the queue
+        <br /><br />
+        <img
+          src="https://github.com/user-attachments/assets/b90d3e57-3d11-49e1-b5f0-07c796d34820"
+          width="160"
+          alt="Peace Sign Gesture"
+        />
+      </td>
+    </tr>
+    <tr>
+      <td>✊ Left Fist</td>
+      <td>
+        Opens the Immersive View of Songs and their respective album covers
+        <br /><br />
+        <img
+          src="https://github.com/user-attachments/assets/26c61734-807c-4a2d-881a-3f2d25b71d55"
+          width="160"
+          alt="Left Fist Gesture"
+        />
+      </td>
+    </tr>
+    <tr>
+      <td>👈 Left Thumb + Middle Finger Click</td>
+      <td>
+        Skips to the previous track
+        <br /><br />
+        <img
+          src="https://github.com/user-attachments/assets/fedcebf6-8b83-4a03-ab07-cb82f8893d68"
+          width="160"
+          alt="Previous Track Gesture"
+        />
+      </td>
+    </tr>
+    <tr>
+      <td>👉 Right Thumb + Ring Finger Click</td>
+      <td>
+        Skips to the next track
+        <br /><br />
+        <img
+          src="https://github.com/user-attachments/assets/e85f6583-2e66-4c27-9c3d-c58e49d916ca"
+          width="160"
+          alt="Next Track Gesture"
+        />
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 # Setup
 
