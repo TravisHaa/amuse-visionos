@@ -1,3 +1,18 @@
+# Details
+ * Amuse is a hand-gesture controlled Apple Music player that uses Music Kit (Application Music Player) and Gesture Kit. The app utilizes 4 gestures to control music playback:
+ 1. Peace Sign: Pauses and plays the current track added to the Queue
+ * <img width="640" height="640" alt="Thumbnail" src="https://github.com/user-attachments/assets/b90d3e57-3d11-49e1-b5f0-07c796d34820" />
+ 2. Left Fist: Opens the Immersive View of Songs and their respective album covers
+ * <img width="640" height="640" alt="Thumbnail" src="https://github.com/user-attachments/assets/26c61734-807c-4a2d-881a-3f2d25b71d55" />
+ 3. Left Thumb and Middle Finger Click: Skips to the previous track
+ * <img width="640" height="640" alt="Thumbnail" src="https://github.com/user-attachments/assets/fedcebf6-8b83-4a03-ab07-cb82f8893d68" />
+ 4. Right Thumb Ring Finger Click: Skips to the next track
+ * <img width="640" height="640" alt="Thumbnail" src="https://github.com/user-attachments/assets/e85f6583-2e66-4c27-9c3d-c58e49d916ca" />
+
+
+
+
+
 # Setup
 
  * For each of the .gesturecomposer files in this repository, please ensure **Build Rules are set to Apply once to Folder and the project is set as a target** as seen in this screenshot:
