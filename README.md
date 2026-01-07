@@ -96,6 +96,8 @@ The following steps are <span style="color:red">REQUIRED</span> to use MusicKit:
 
 
 ## Video Preview
+Here's an early stage demo of the hand gestures in action:[▶ Watch Demo](amuse_gestures.mp4)
+
 https://github.com/user-attachments/assets/b9d1fde4-fe8e-49c0-8f96-d52fdcda59e7
 
 Big Thanks to @IvanCampos for the MusicKit boilerplate code
